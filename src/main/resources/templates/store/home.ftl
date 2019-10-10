@@ -36,23 +36,26 @@
     </div>
 
     <div class="col-md-offset-2 col-md-8">
-        <form action="#" class="navbar-form navbar-left" role="search">
+        <form action="" class="navbar-form navbar-left" role="search">
+
+            <input type="hidden" name="storeId" value="${storeInfo.storeid}">
+
             <div class="form-group">
                 大小：
-                <select class="form-control">
-                    <option>全部</option>
-                    <option>大杯</option>
-                    <option>中杯</option>
-                    <option>小杯</option>
+                <select class="form-control" name="detailsize">
+                    <option value="-1">全部</option>
+                    <option value="3">大杯</option>
+                    <option value="2">中杯</option>
+                    <option value="1">小杯</option>
                 </select>
             </div>
             &nbsp;
             <div class="form-group">
                 冷热：
-                <select class="form-control">
-                    <option>全部</option>
-                    <option>冷</option>
-                    <option>热</option>
+                <select class="form-control" name="temperature">
+                    <option value="-1">全部</option>
+                    <option value="1">冷</option>
+                    <option value="2">热</option>
                 </select>
             </div>
             &nbsp;
@@ -103,55 +106,6 @@
                 </td>
             </tr>
             </#list>
-            <tr>
-                <td>2</td>
-                <td>卡布其诺</td>
-                <td align="center">
-                    <label class="radio-inline">
-                        <input name="size-2" type="radio" value="2:s1" checked>大杯</input>
-                    </label>
-                    <label class="radio-inline">
-                        <input name="size-2" type="radio" value="2:s2">中杯</input>
-                    </label>
-                    <label class="radio-inline">
-                        <input name="size-2" type="radio" value="2:s3">小杯</input>
-                    </label>
-                </td>
-                <td align="center">
-                    <label class="radio-inline">
-                        <input type="radio" value="2:t1" checked>热</input>
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" value="2:t2">冷</input>
-                    </label>
-                </td>
-                <td>25</td>
-                <td>
-                    <a href="/goto_set?sid=1" target="_blank">加入购物车</a>
-                </td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>猫屎咖啡</td>
-                <td align="center">
-                    <label class="radio-inline">
-                        <input name="size-3" type="radio" checked>中杯</input>
-                    </label>
-                    <label class="radio-inline">
-                        <input name="size-3" type="radio">小杯</input>
-                    </label>
-                </td>
-                <td align="center">
-                    <label class="radio-inline">
-                        <input type="radio" checked>热</input>
-                    </label>
-                </td>
-                <td>25</td>
-                <td>
-                    <a href="/goto_set?sid=1" target="_blank">加入购物车</a>
-                </td>
-            </tr>
         </table>
 
         <div align="center">

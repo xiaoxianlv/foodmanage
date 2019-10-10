@@ -10,10 +10,10 @@
          <if test="storeid!=null">
           and  com.`storeid`=#{storeid}
          </if>
-         <if test="detailsize!=null">
+         <if test="detailsize!=null and detailsize!=-1">
              and detail.detailsize=#{detailsize}
          </if>
-         <if test="temperature!=null">
+         <if test="temperature!=null and temperature!=-1">
              and detail.temperature=#{temperature}
          </if>
     </select>
