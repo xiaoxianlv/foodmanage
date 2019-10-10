@@ -37,7 +37,7 @@
                 <input type="text" name="userphone" id="userphone" class="form-control">
             </div>
             <div class="form-group col-md-7 col-md-offset-2">
-                <button class="btn btn-success" type="submit">提交注册</button>
+                <button class="btn btn-success" type="button" id="submitReg">提交注册</button>
                 <button class="btn btn-warning" type="reset">重置</button>
             </div>
         </form>
@@ -46,4 +46,49 @@
 </body>
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
+<script src="https://cdn.staticfile.org/sweetalert/2.1.1/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#userphone").blur(function () {
+            var phone = $(this).val();
+            $.ajax({
+                    type: "post",
+                    url: "/userinfo/selectUserByPhone",
+                    data: {
+                        "phone":phone
+                    },
+                    success:function (data) {
+                        if(data.dataStauts=="error"){
+                            swal('该手机号已注册过此系统');
+                            $("#userphone").val('');
+                        }
+                    }
+                }
+            )
+        })
+
+
+        //注册
+        $("#submitReg").click(function () {
+            //获取表单
+            var formdata=$("form").serialize();
+            $.ajax({
+                type:"post",
+                url:"/userinfo/doRegUser",
+                data:formdata,
+                success:function (result) {
+                   if(result.dataStauts=="success"){
+                       swal('注册用户成功');
+                   }else{
+                       swal('注册用户失败');
+                   }
+                }
+            })
+
+
+        })
+
+    })
+
+</script>
 </html>
