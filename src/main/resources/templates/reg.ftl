@@ -70,6 +70,16 @@
 
         //注册
         $("#submitReg").click(function () {
+            var  reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+            var password = $("#password").val();
+            if(password.length<6){
+                swal('密码必须六位以上');
+                return false;
+            }
+            if(!reg.test(password)){
+                swal('密码不符合规则,必须有大小写字母、数字和标点中的至少三项');
+                return false;
+            }
             //获取表单
             var formdata=$("form").serialize();
             $.ajax({
