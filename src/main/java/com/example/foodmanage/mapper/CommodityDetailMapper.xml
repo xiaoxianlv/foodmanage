@@ -3,4 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.foodmanage.mapper.CommodityDetailMapper">
+    <select id="selectOneInfo" resultType="com.example.foodmanage.entity.CommodityDetail">
+        SELECT * FROM `commoditydetail` WHERE `detailid`=#{detailId}
+    </select>
 </mapper>

@@ -31,4 +31,9 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     public List<StoreInfo> queryStore(StoreInfo storeInfo) {
         return storeInfoMapper.queryStore(storeInfo);
     }
+
+    @Override
+    public StoreInfo selectOneStoreInfo(Integer storeId) {
+        return storeInfoMapper.selectOneStoreInfo(storeId);
+    }
 }

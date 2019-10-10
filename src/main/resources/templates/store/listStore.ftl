@@ -44,7 +44,7 @@
                 <td>${store.addressinfo}</td>
                 <td>${store.coordinate}</td>
                 <td>
-                    <button class="btn btn-warning" value="查看菜单">查看菜单</button>
+                    <button class="btn btn-warning" value="查看菜单" storeId="${store.storeid}" name="showHome">查看菜单</button>
                 </td>
             </tr>
             </#list>
@@ -54,4 +54,12 @@
 </body>
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("button[name='showHome']").click(function () {
+            var storeid = $(this).attr('storeId');
+            location.href = '/storeinfo/storeHome?storeId='+storeid;
+        })
+    })
+</script>
 </html>

@@ -3,6 +3,7 @@ package com.example.foodmanage.mapper;
 import com.example.foodmanage.entity.StoreInfo;
 import org.apache.catalina.Store;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -28,6 +29,14 @@ public interface StoreInfoMapper {
      * @return
      */
     List<StoreInfo> queryStore(StoreInfo storeInfo);
+
+    /**
+     * 查询店铺的详细信息
+     * @param storeId
+     * @return
+     */
+    @Select("SELECT * FROM `storeinfo` WHERE storeid=#{storeId}")
+    StoreInfo selectOneStoreInfo(Integer storeId);
 
 
 

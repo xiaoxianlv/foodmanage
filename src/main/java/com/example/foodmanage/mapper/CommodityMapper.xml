@@ -3,4 +3,18 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.foodmanage.mapper.CommodityMapper">
+    <select id="queryAll" resultType="com.example.foodmanage.entity.Commodity" parameterType="com.example.foodmanage.bo.CommodityBO">
+        SELECT * FROM commodity com,commoditydetail detail,storeinfo store
+        WHERE com.`storeid`=store.`storeid`
+        AND  detail.`commodityid`=com.`commodityid`
+         <if test="storeid!=null">
+          and  com.`storeid`=#{storeid}
+         </if>
+         <if test="detailsize!=null">
+             and detail.detailsize=#{detailsize}
+         </if>
+         <if test="temperature!=null">
+             and detail.temperature=#{temperature}
+         </if>
+    </select>
 </mapper>
