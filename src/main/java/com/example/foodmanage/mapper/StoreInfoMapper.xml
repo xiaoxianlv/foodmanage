@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.foodmanage.mapper.StoreInfoMapper">
+    <insert id="addStore">
+        INSERT INTO `storeinfo` VALUES(NULL,#{storename},#{addressinfo},#{coordinate})
+    </insert>
+    <select id="queryStore" resultType="com.example.foodmanage.entity.StoreInfo">
+        SELECT * FROM `storeinfo`
+        <where>
+            <if test="addressinfo!=null and addressinfo!=''">
+             and  addressinfo LIKE CONCAT('%',#{addressinfo},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
