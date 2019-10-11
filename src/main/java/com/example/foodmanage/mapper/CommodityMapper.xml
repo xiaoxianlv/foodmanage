@@ -20,4 +20,7 @@
          </if>
         GROUP BY com.`commodityname`
     </select>
+    <select id="selectOneCommodity" resultType="com.example.foodmanage.entity.Commodity">
+        select * from commodity where commodityid=#{id}
+    </select>
 </mapper>

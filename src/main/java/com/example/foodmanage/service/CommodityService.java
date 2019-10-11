@@ -20,5 +20,10 @@ public interface CommodityService {
      */
     PageInfo<Commodity> queryAll(Integer pageNum, Integer pageSize, CommodityBO  commodity);
 
-
+    /**
+     * 根据商品的id 查询商品的信息
+     * @param id
+     * @return
+     */
+    Commodity selectOneCommodity(Integer id);
 }

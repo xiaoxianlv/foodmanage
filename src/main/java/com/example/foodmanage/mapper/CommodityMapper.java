@@ -22,6 +22,13 @@ public interface CommodityMapper {
      */
     List<Commodity> queryAll(CommodityBO commodity);
 
+    /**
+     * 根据商品的id 查询商品的信息
+     * @param id
+     * @return
+     */
+    Commodity selectOneCommodity(Integer id);
+
 
 
 }

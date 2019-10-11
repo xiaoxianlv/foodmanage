@@ -88,7 +88,7 @@
                 </td>
                 <td>25</td>
                 <td>
-                    <a href="/goto_set?sid=1" target="_blank">加入购物车</a>
+                    <a href="javascript:void(0)" storeInfoId="${commod.storeid}" commodityid="${commod.commodityid}" name="saveOrder">加入购物车</a>
                 </td>
             </tr>
             </#list>
@@ -122,8 +122,6 @@
 <script src="/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(function () {
-
-
         var detailsize=${commodity.detailsize!-1}
         var temperature=${commodity.temperature!-1};
         if (detailsize==null){
@@ -163,6 +161,38 @@
 
 
         })
+        //新增订单的处理
+        $("a[name='saveOrder']").click(function () {
+            var dom = $(this);
+            //获取店铺信息的id
+            var storeInfoId = $(this).attr("storeinfoid");
+            //商品的id
+            var commodityid = $(this).attr("commodityid");
+            //数量暂时写死 在考虑是否填写数量
+            var count = 1;
+            //获取价格
+            var price = $(dom).parent().prev().text();
+
+            $.ajax({
+                type:"post",
+                url:"/order/addOrder",
+                data:{
+                    "storeInfoId":storeInfoId,
+                    "commodityid":commodityid,
+                    "count":count,
+                    "price":price
+                },
+                success:function (result) {
+                    if(result.dataStatus=="success") {
+                        alert(result.message);
+                    }
+                }
+            })
+
+
+        })
+
+
 
     })
 </script>

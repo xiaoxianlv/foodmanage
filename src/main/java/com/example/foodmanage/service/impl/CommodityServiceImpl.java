@@ -36,4 +36,9 @@ public class CommodityServiceImpl implements CommodityService {
         PageInfo<Commodity> pageInfo = new PageInfo<>(commodityList);
         return pageInfo;
     }
+
+    @Override
+    public Commodity selectOneCommodity(Integer id) {
+        return commodityMapper.selectOneCommodity(id);
+    }
 }
