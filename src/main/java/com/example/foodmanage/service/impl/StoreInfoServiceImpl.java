@@ -25,6 +25,8 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 
     @Override
     public Integer addStore(StoreInfo storeInfo) {
+        //密码加密
+        storeInfo.setPassword(MD5Util.MD5EncodeUtf8(storeInfo.getPassword()));
         return storeInfoMapper.addStore(storeInfo);
     }
 

@@ -61,6 +61,18 @@ public class StoreInfoController {
     }
 
 
+    /**
+     * 处理店铺注册
+     * @param storeInfo
+     * @return
+     */
+    @PostMapping("doReg")
+    public String doReg(StoreInfo storeInfo){
+        storeInfoService.addStore(storeInfo);
+        return "redirect:/";
+    }
+
+
 
     /**
      * 查询店铺
@@ -78,6 +90,16 @@ public class StoreInfoController {
         model.addAttribute("storeInfoList", storeInfoList);
         return "/store/listStore";
     }
+
+    /**
+     * 去注册门店的页面
+     * @return
+     */
+    @GetMapping("reg")
+    public String reg(){
+        return "/store/reg";
+    }
+
 
     /**
      * 店铺的主页

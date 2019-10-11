@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.foodmanage.mapper.StoreInfoMapper">
     <insert id="addStore">
-        INSERT INTO `storeinfo` VALUES(NULL,#{storename},#{addressinfo},#{coordinate})
+        INSERT INTO `storeinfo` VALUES(NULL,#{storename},#{addressinfo},#{coordinate},#{username},#{password})
     </insert>
     <select id="queryStore" resultType="com.example.foodmanage.entity.StoreInfo">
         SELECT * FROM `storeinfo`
