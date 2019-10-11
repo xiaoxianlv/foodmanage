@@ -26,6 +26,7 @@
                 <th>数量</th>
                 <th>总价</th>
             </tr>
+            <#if storeOrderVOList?? && (storeOrderVOList?size > 0)>
             <#list storeOrderVOList as store>
                 <tr>
                     <td>${store.userInfo.username}</td>
@@ -35,6 +36,9 @@
                     <td>${store.price}</td>
                 </tr>
             </#list>
+            <#else>
+                <h3>您的店铺还没有用户下单呢！</h3>
+            </#if>
         </table>
     </div>
 </div>

@@ -25,6 +25,7 @@
                 <th>数量</th>
                 <th>总价</th>
             </tr>
+            <#if userOrderVOList?? && (userOrderVOList?size > 0)>
             <#list userOrderVOList as order>
                 <tr>
                     <td>${order.storeInfo.storename}</td>
@@ -33,6 +34,10 @@
                     <td>${order.price}</td>
                 </tr>
             </#list>
+            <#else>
+                <h3>您还没有购买过任何商品，快去下单把!</h3>
+                <a href="/storeinfo/query">去下单</a>
+            </#if>
         </table>
     </div>
 </div>

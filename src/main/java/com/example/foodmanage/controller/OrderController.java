@@ -162,8 +162,8 @@ public class OrderController {
         //查询数据
         Object orderJson = redisUtil.get(OrderConstans.STOREORDER_PREFIX + storeId);
         if(ObjectUtils.isEmpty(orderJson)){
-            //没有查询到数据
-            return "";
+            //没有查询到数据,不去转换
+            return "/order/myStoreOrder";
         }else{
             //查询到了数据
             List<StoreOrderVO> storeOrderVOList = JSONArray.parseArray(orderJson.toString(), StoreOrderVO.class);
@@ -190,8 +190,8 @@ public class OrderController {
         Object orderJson = redisUtil.get(OrderConstans.USERORDER_PREFIX + userInfo.getUserid());
         //判读是否有订单
         if(ObjectUtils.isEmpty(orderJson)){
-            //没有订单
-            return "";
+            //没有订单,不去处理转换
+            return "order/myOrder";
         }else{
             //转换数据
             List<UserOrderVO> userOrderVOList = JSONArray.parseArray(orderJson.toString(), UserOrderVO.class);
