@@ -59,6 +59,7 @@ public class StoreInfoController {
      */
     @GetMapping("storeHome")
     public String home(Integer pageNum,Integer pageSize,Integer storeId, Model model, CommodityDetail commodityDetail, CommodityBO  commodity){
+        model.addAttribute("commodity", commodity);
         //非空判断
         if(storeId==null){
             return "403";
@@ -75,5 +76,4 @@ public class StoreInfoController {
         model.addAttribute("pageInfo", pageInfo);
         return "store/home";
     }
-
 }

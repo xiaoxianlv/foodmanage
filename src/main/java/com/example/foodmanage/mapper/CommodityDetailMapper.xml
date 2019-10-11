@@ -6,4 +6,10 @@
     <select id="selectOneInfo" resultType="com.example.foodmanage.entity.CommodityDetail">
         SELECT * FROM `commoditydetail` WHERE `detailid`=#{detailId}
     </select>
+    <select id="detailCom" resultType="com.example.foodmanage.entity.CommodityDetail">
+        select * from  commoditydetail
+        where commodityid=#{commodityid}
+        AND detailsize=#{detailsize}
+        AND temperature=#{temperature}
+    </select>
 </mapper>

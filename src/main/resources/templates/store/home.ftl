@@ -12,21 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.css">
 
-    <script type="text/javascript">
-        $(function () {
-            $("input[type='radio']").on("click",function () {
-                alert($(this).val());
-                /*
-                    if($("input[id='a']:checked").val()=="1"){
-                        console.log("11111");
-                    }else{
-                        console.log("2222");
-                    }
-                */
-            })
-        })
 
-    </script>
 </head>
 
 <body>
@@ -83,21 +69,21 @@
                 <td>${commod.commodityname}</td>
                 <td align="center">
                     <label class="radio-inline">
-                        <input name="size-1" type="radio" value="1:s1" checked>大杯</input>
+                        <input name="size" type="radio" value="3">大杯</input>
                     </label>
                     <label class="radio-inline">
-                        <input name="size-1" type="radio" value="1:s2">中杯</input>
+                        <input name="size" type="radio" value="2">中杯</input>
                     </label>
                     <label class="radio-inline">
-                        <input name="size-1" type="radio" value="1:s3">小杯</input>
+                        <input name="size" type="radio" value="1">小杯</input>
                     </label>
                 </td>
                 <td align="center">
                     <label class="radio-inline">
-                        <input name="temp" type="radio" value="1:t1" checked>热</input>
+                        <input name="temp" type="radio" commodityid="${commod.commodityid}" value="2" checked>热</input>
                     </label>
                     <label class="radio-inline">
-                        <input name="temp" type="radio" value="1:t2">冷</input>
+                        <input name="temp" type="radio" commodityid="${commod.commodityid}" value="1">冷</input>
                     </label>
                 </td>
                 <td>25</td>
@@ -134,5 +120,49 @@
 </div>
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var detailsize=${(commodity.detailsize)!};
+        var temperature=${(commodity.temperature)!};
+        if (detailsize==null){
+            detailsize = -1;
+        }
+        if(temperature=-1){
+            temperature = -1;
+        }
+        //回显
+        $("select[name='detailsize']").val(detailsize);
+        $("select[name='temperature']").val(temperature);
+
+        //单选框 冷热的选择
+        $("input[name='temp']").click(function () {
+            //获取选择的value
+            var dom = $(this);
+            var temperatureValue = $(this).val();
+            var commodityidValue = $(this).attr("commodityid");
+            var size = $("input[name='size']:checked").val();
+            $.ajax({
+                type:"post",
+                url:"/commoditydetail/detailPirce",
+                data:{
+                    "commodityid":commodityidValue,
+                    "detailsize":size,
+                    "temperature":temperatureValue
+                },
+                success:function (result) {
+                    if(result.mess=="error"){
+                        $(dom).parent().parent().next().text("请仔细选择套餐");
+                    }else{
+                        $(dom).parent().parent().next().text(result.price);
+                    }
+
+                }
+            })
+
+
+        })
+
+    })
+</script>
 </body>
 </html>

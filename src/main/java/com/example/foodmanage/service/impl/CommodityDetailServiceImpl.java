@@ -23,4 +23,9 @@ public class CommodityDetailServiceImpl implements CommodityDetailService {
     public CommodityDetail selectOneInfo(Integer detailId) {
         return commodityDetailMapper.selectOneInfo(detailId);
     }
+
+    @Override
+    public CommodityDetail detailCom(CommodityDetail commodityDetail) {
+        return commodityDetailMapper.detailCom(commodityDetail);
+    }
 }

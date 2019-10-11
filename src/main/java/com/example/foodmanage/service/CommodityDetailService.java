@@ -17,4 +17,12 @@ public interface CommodityDetailService {
      */
     CommodityDetail selectOneInfo(Integer detailId);
 
+
+    /**
+     * 根据传入的信息 显示套餐信息
+     * @param commodityDetail
+     * @return 套餐实体
+     */
+    CommodityDetail detailCom(CommodityDetail commodityDetail);
+
 }
