@@ -34,12 +34,10 @@ public class CommodityDetailController {
     public Map<String,Object> detailPirce(CommodityDetail commodityDetail){
         //设置map返回值状态
         Map<String, Object> map = new HashMap<>();
-        //设置返回值价格
-        Float price = null;
         //去数据库查询价格
         CommodityDetail commodityinfo = commodityDetailService.detailCom(commodityDetail);
         //判断对象,没有查询到的价格
-        if (ObjectUtils.isEmpty(commodityDetail)){
+        if (ObjectUtils.isEmpty(commodityinfo)){
             map.put("mess", "error");
             return map;
         }else{

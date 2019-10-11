@@ -13,7 +13,7 @@ public class IndexController {
 
     @GetMapping("")
     public String index(){
-        return "redirect:/storeinfo/query";
+        return "redirect:/userinfo/login";
     }
 
 }

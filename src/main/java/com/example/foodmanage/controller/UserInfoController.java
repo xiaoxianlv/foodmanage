@@ -5,12 +5,14 @@ import com.example.foodmanage.service.UserInfoService;
 import freemarker.template.utility.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,36 @@ public class UserInfoController {
     public String reg(){
         return "reg";
     }
+
+
+    /**
+     * 去登录
+     * @return
+     */
+    @GetMapping("login")
+    public String login(){
+        return "login";
+    }
+
+    @PostMapping("doLogin")
+    public String doLogin(HttpSession session, UserInfo userInfo, Model model){
+        //判断对象
+        if(ObjectUtils.isEmpty(userInfo)){
+            return "403";
+        }
+        //数据库查询信息
+        UserInfo user = userInfoService.loginUser(userInfo);
+        if(!ObjectUtils.isEmpty(user)){
+            //数据库有用户
+            session.setAttribute("userInfo", user);
+            return "redirect:/storeinfo/query";
+        }else{
+            model.addAttribute("msg", "登录失败");
+            return "login";
+        }
+
+    }
+
 
     /**
      * 根据手机号查看手机号是否已经注册

@@ -122,8 +122,10 @@
 <script src="/js/bootstrap.js"></script>
 <script type="text/javascript">
     $(function () {
-        var detailsize=${(commodity.detailsize)!};
-        var temperature=${(commodity.temperature)!};
+
+
+        var detailsize=${commodity.detailsize!-1}
+        var temperature=${commodity.temperature!-1};
         if (detailsize==null){
             detailsize = -1;
         }
