@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -30,6 +32,33 @@ public class StoreInfoController {
 
     @Autowired
     private CommodityService commodityService;
+
+    /**
+     * 门店去登录
+     * @return
+     */
+    @GetMapping("login")
+    public String toStoreLogin(){
+        return "/store/login";
+    }
+
+    /**
+     * 处理门店登录信息
+     * @param storeInfo
+     * @return
+     */
+    @PostMapping("doStoreLogin")
+    public String doStoreLogin(StoreInfo storeInfo, HttpSession session){
+        //登录信息查询
+        StoreInfo storeLogin = storeInfoService.storeLogin(storeInfo);
+        if(ObjectUtils.isEmpty(storeLogin)){
+            //没有查询到
+            return "/store/login";
+        }else{
+            session.setAttribute("storeInfo", storeLogin);
+            return "redirect:/order/myStoreOrder";
+        }
+    }
 
 
 

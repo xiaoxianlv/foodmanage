@@ -3,6 +3,7 @@ package com.example.foodmanage.service.impl;
 import com.example.foodmanage.entity.StoreInfo;
 import com.example.foodmanage.mapper.StoreInfoMapper;
 import com.example.foodmanage.service.StoreInfoService;
+import com.example.foodmanage.util.MD5Util;
 import com.github.pagehelper.PageInfo;
 import freemarker.template.utility.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,13 @@ public class StoreInfoServiceImpl implements StoreInfoService {
     @Override
     public List<StoreInfo> queryStore(StoreInfo storeInfo) {
         return storeInfoMapper.queryStore(storeInfo);
+    }
+
+    @Override
+    public StoreInfo storeLogin(StoreInfo storeInfo) {
+        //密码加密
+        storeInfo.setPassword(MD5Util.MD5EncodeUtf8(storeInfo.getPassword()));
+        return storeInfoMapper.storeLogin(storeInfo);
     }
 
     @Override

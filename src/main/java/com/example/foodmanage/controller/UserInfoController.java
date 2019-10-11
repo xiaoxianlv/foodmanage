@@ -57,7 +57,7 @@ public class UserInfoController {
         if(!ObjectUtils.isEmpty(user)){
             //数据库有用户
             session.setAttribute("userInfo", user);
-            return "redirect:/storeinfo/query";
+            return "redirect:/order/myOrder";
         }else{
             model.addAttribute("msg", "登录失败");
             return "login";

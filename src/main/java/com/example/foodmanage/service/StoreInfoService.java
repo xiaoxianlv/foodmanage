@@ -28,6 +28,14 @@ public interface StoreInfoService {
     List<StoreInfo> queryStore(StoreInfo storeInfo);
 
 
+    /**
+     * 登录store
+     * @param storeInfo
+     * @return
+     */
+    StoreInfo storeLogin(StoreInfo storeInfo);
+
+
 
     /**
      * 查询店铺的详细信息

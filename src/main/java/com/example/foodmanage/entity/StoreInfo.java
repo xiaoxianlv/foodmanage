@@ -17,4 +17,6 @@ public class StoreInfo {
     private String storename;
     private String addressinfo;
     private String coordinate;
+    private String username;
+    private String password;
 }

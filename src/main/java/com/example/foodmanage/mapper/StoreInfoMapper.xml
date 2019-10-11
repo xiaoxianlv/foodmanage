@@ -14,4 +14,9 @@
             </if>
         </where>
     </select>
+    <select id="storeLogin" resultType="com.example.foodmanage.entity.StoreInfo">
+        SELECT * FROM `storeinfo`
+WHERE username=#{username}
+AND PASSWORD=#{password}
+    </select>
 </mapper>
