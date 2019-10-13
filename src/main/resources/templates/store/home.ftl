@@ -96,28 +96,42 @@
 
         <div align="center">
             <nav aria-lable="Page navigation">
+                <p>当前页码:${pageInfo.pageNum},总页码:${pageInfo.pages}页</p>
                 <ul class="pagination">
-                    <li class="disabled"><a href="javascript:void(0);">首页</a></li>
-                    <li class="disabled">
-                        <a href="javascript:void(0);" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-
-                    <li class="active"><a href="javascript:void(0);">1</a></li>
-                    <li><a href="/all_students?page=2">2</a></li>
-
-                    <li>
-                        <a href="/all_students?page=2" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="/all_students?page=2">末页</a></li>
+                    <li><a href="javascript:void(0);" name="limitQuery" pageNo="1">首页</a></li>
+                    <li><a href="javascript:void(0);" name="limitQuery" pageNo="${pageInfo.pageNum-1}">上一页</a></li>
+                    <li><a href="javascript:void(0);" name="limitQuery" pageNo="${pageInfo.pageNum+1}">下一页</a></li>
+                    <li><a href="javascript:void(0);" name="limitQuery" pageNo="${pageInfo.pages}">末页</a></li>
                 </ul>
             </nav>
         </div>
     </div>
+
+
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="countModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">请填写数量</h4>
+            </div>
+            <div class="modal-body">
+                请填写数量:<input type="text" name="shopcount" id="shopcount" placeholder="请填写数量" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消下单</button>
+                <button type="button" class="btn btn-primary" id="addOrderPay">确认下单</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<input type="hidden" value="" id="storeInfoId">
+<input type="hidden" value="" id="commodityid">
+<input type="hidden" value="" id="payPrice">
+
+
 <script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.js"></script>
 <script type="text/javascript">
@@ -158,41 +172,58 @@
 
                 }
             })
-
-
         })
         //新增订单的处理
         $("a[name='saveOrder']").click(function () {
+            //显示模态框
+            $("#countModal").modal('show');
             var dom = $(this);
             //获取店铺信息的id
             var storeInfoId = $(this).attr("storeinfoid");
+            $("#storeInfoId").val(storeInfoId);
             //商品的id
             var commodityid = $(this).attr("commodityid");
-            //数量暂时写死 在考虑是否填写数量
-            var count = 1;
+            $("#commodityid").val(commodityid);
             //获取价格
             var price = $(dom).parent().prev().text();
+            $("#payPrice").val(price);
+        });
 
+        //确认下单
+        $("#addOrderPay").click(function () {
+            //点击
+            var storeInfoId = $("#storeInfoId").val();
+            var commodityid = $("#commodityid").val();
+            //获取数量，传送后台计算价格
+            var shopcount = $("#shopcount").val();
+            var price = $("#payPrice").val();
             $.ajax({
-                type:"post",
-                url:"/order/addOrder",
-                data:{
-                    "storeInfoId":storeInfoId,
-                    "commodityid":commodityid,
-                    "count":count,
-                    "price":price
+                type: "post",
+                url: "/order/addOrder",
+                data: {
+                    "storeInfoId": storeInfoId,
+                    "commodityid": commodityid,
+                    "count": shopcount,
+                    "price": price
                 },
-                success:function (result) {
-                    if(result.dataStatus=="success") {
+                success: function (result) {
+                    if (result.dataStatus == "success") {
                         alert(result.message);
+                        //显示模态框
+                        $("#countModal").modal('hide');
+                    }else if(result.dataStatus=="error"){
+                        alert(result.message)
+                        location.href = '/';
                     }
                 }
             })
-
-
         })
-
-
+        //分页
+        $("a[name='limitQuery']").click(function () {
+            var pageno = $(this).attr("pageno");
+            var data = $("form").serialize();
+            location.href = '/storeinfo/storeHome?pageNum='+pageno+"&"+data;
+        })
 
     })
 </script>

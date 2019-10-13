@@ -73,6 +73,9 @@ public class OrderController {
             map.put("message", "系统未监测到用户登录");
             return map;
         }
+        //如果验证都通过 这里将进行计算价格
+        price = price * count;
+        log.info("计算的价格为:"+price);
         //给商家的redis添加数据  用户ID+规格ID+数量（例如：101:1*5）,首先根据redis的key去查询商家信息 进行增加
         Object orderJson = redisUtil.get(OrderConstans.STOREORDER_PREFIX + storeInfoId);
         //创建新的商家订单vo,准备放进去订单
@@ -133,7 +136,8 @@ public class OrderController {
             }
             map.put("dataStatus", "success");
             map.put("dataCode", "10002");
-            map.put("message", "增加商家订单和用户订单成功");
+            map.put("message", "用户"+userInfo.getUsername()+"您好，您购买的商品"+commodity.getCommodityname()+"购买成功!购买数量为" +
+                    +count+",您一共付款了"+price+"元");
             return map;
         } catch (Exception e) {
             e.printStackTrace();
